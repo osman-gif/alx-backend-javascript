@@ -1,6 +1,6 @@
 // 1. In the test file, write tests for each function in the 1-calcul.js file.
-const calculateNumber = require("./1-calcul.js");
-import { expect } from "cahi";
+import calculateNumber from "./2-calcul_chai.js";
+import { expect } from "chai";
 
 describe("calculateNumber", function(){
     describe("type SUM", function(){
