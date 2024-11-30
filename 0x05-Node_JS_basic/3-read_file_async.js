@@ -1,45 +1,37 @@
+const fs = require('fs').promises;
 
-const fs = require('fs');
-
-module.exports = function countStudents(path) {
+module.exports = async function countStudents(path) {
     try {
-        const data = fs.readFile(path, 'utf8');
-        const lines = data.split('\n');
-        const headers = lines.shift().split(',');
-        const students = lines.map((line) => line.split(','));
-        const studentsCount = students.length - 1;
+        const data = await fs.readFile(path, 'utf8'); // Asynchronously read the file
+        const lines = data.trim().split('\n'); // Split by new lines
+        const headers = lines.shift().split(','); // Extract headers
+        const students = lines.map((line) => line.split(',')); // Parse student data
+
+        const studentsCount = students.length;
         const studentsByField = {};
 
-        // go through each student
+        // Iterate over each student
         students.forEach((student) => {
-            // go through each field in student
-            student.forEach((field, index) => {
-                // Check if the field is 'field'
-                if (headers[index] === 'field') {
-                    // Check if there is any student in this field,
-                    //if not, then set it to empty list
-                    if (!studentsByField[field]) {
-                        studentsByField[field] = [];
-                    }
-                    //else, add this student name to the list
-                    studentsByField[field].push(student[0]);
+            const name = student[0]; // Assuming first column is the student name
+            const fieldIndex = headers.indexOf('field'); // Find the index for 'field'
+
+            if (fieldIndex !== -1) {
+                const field = student[fieldIndex]; // Get the student's field
+                if (!studentsByField[field]) {
+                    studentsByField[field] = [];
                 }
-            });
-        }
-        );
+                studentsByField[field].push(name);
+            }
+        });
+
         console.log(`Number of students: ${studentsCount}`);
-        // Loop through each field
         for (const field in studentsByField) {
-            // Check if field exist
-            if (field) {
-                // If field exists, put all the students in this
-                // field in a string and separate them by comma
+            if (studentsByField[field]) {
                 const list = studentsByField[field].join(', ');
                 console.log(`Number of students in ${field}: ${studentsByField[field].length}. List: ${list}`);
             }
         }
-    }
-    catch (error) {
+    } catch (error) {
         throw new Error('Cannot load the database');
     }
-}
+};
