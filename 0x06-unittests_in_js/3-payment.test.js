@@ -1,10 +1,10 @@
-import Sinon from 'sinon';
+import sinon from 'sinon';
 import {sendPaymentRequestToApi} from './payment';
 
 describe('sendPaymentRequestToApi', function() {
     let consoleSpy;
     beforeEach(() => {
-        consoleSpy = Sinon.spy(console, 'log');
+        consoleSpy = sinon.spy(console, 'log');
     });
 
     afterEach(() => {
