@@ -1,4 +1,5 @@
 //function to display the message on the console
-module.exports = displayMessage = function(input){
-    process.stdout.write(input + '\n')
+
+module.exports = function displayMessage(string) {
+    console.log(string);
 }
