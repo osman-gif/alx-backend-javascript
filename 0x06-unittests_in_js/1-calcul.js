@@ -1,4 +1,4 @@
-function calculateNumber(type, a, b){
+module.exports = function calculateNumber(type, a, b){
     roundA = Math.round(a);
     roundB = Math.round(b);
     if (type === 'SUM'){
@@ -14,4 +14,3 @@ function calculateNumber(type, a, b){
         return roundA / roundB;
     }
 }
-module.exports = calculateNumber; 
