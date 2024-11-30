@@ -1,19 +1,19 @@
-import {jest} from '@jest/globals';
+import Sinon from 'sinon';
+import {sendPaymentRequestToApi} from './payment';
 
-describe("sendPaymentRequestToApi", function(){
-    it("should return 104", function(){
-        const consoleSpy = console.log;
-        console.log = jest.fn();
-        sendPaymentRequestToApi(100, 4);
-        expect(console.log).toHaveBeenCalledWith('The total is: 104');
-        console.log = consoleSpy;
+describe('sendPaymentRequestToApi', function() {
+    let consoleSpy;
+    beforeEach(() => {
+        consoleSpy = Sinon.spy(console, 'log');
     });
-    it("should return 104", function(){
-        const consoleSpy = console.log;
-        console.log = jest.fn();
-        sendPaymentRequestToApi(100, 4);
-        expect(console.log).toHaveBeenCalledWith('The total is: 104');
-        console.log = consoleSpy;
+
+    afterEach(() => {
+        consoleSpy.restore();
+    });
+
+    it('should log the right output', function() {
+        sendPaymentRequestToApi(100, 20);
+        expect(consoleSpy.calledOnceWithExactly('The total is: 120')).toBe(true);
     });
 }
 );
