@@ -9,4 +9,7 @@ describe("calculateNumber", function(){
     it("should return 4", function(){
         assert.equal(calculateNumber(1.1, 3), 4);
     });
+    it("should retun 4", function(){
+        assert.equal(calculateNumber(3, 1.1), 4);
+    });
 });
